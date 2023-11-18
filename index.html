@@ -15,21 +15,42 @@
   <body>
     <h1>Multiple Timers App</h1>
     <section id="Timer-Input-Section">
-      <div id="input-section">
+      <div class="input-section">
         <div id="set-time">
           <label for="setTime" style="background-color: #34344a"
             >Set Time :</label
           >
         </div>
         <div id="input-time">
-          <input type="number" placeholder="hh" />
+          <input
+            type="number"
+            id="inputHour"
+            placeholder="hh"
+            min="0"
+            max="23"
+            step="1"
+          />
           <span>:</span>
-          <input type="number" placeholder="mm" />
+          <input
+            type="number"
+            id="inputMinute"
+            placeholder="mm"
+            min="0"
+            max="59"
+            step="1"
+          />
           <span>:</span>
-          <input type="number" placeholder="ss" />
+          <input
+            type="number"
+            id="inputSecond"
+            placeholder="ss"
+            min="0"
+            max="59"
+            step="1"
+          />
         </div>
         <div style="background-color: #34344a">
-          <button id="set-button" onclick="addActiveTimer()">Set</button>
+          <button id="action-button">Set</button>
         </div>
       </div>
     </section>
@@ -37,7 +58,62 @@
       <div id="section2-title">
         <h3>Current Timers</h3>
       </div>
-      <div id="active-timer"></div>
+      <div id="active-timer">
+        <span id="no-active-timer-notification"
+          >You have no timers currently!</span
+        >
+        <!-- Active timers to be added -->
+        <!-- <div id="input-section">
+          <div id="set-time">
+            <label for="setTime" style="background-color: #34344a"
+              >Time Left :</label
+            >
+          </div>
+          <div id="input-time">
+            <input
+            type="number"
+            id="startHourTime"
+            placeholder="hh"
+            min="0"
+            max="23"
+            step="1"
+          />
+          <span>:</span>
+          <input
+            type="number"
+            id="startMinuteTime"
+            placeholder="mm"
+            min="0"
+            max="59"
+            step="1"
+          />
+          <span>:</span>
+          <input
+            type="number"
+            id="startSecondTime"
+            placeholder="ss"
+            min="0"
+            max="59"
+            step="1"
+          />
+          </div>
+          <div style="background-color: #34344a">
+            <button id="action-button">Stop</button>
+          </div>
+        </div> -->
+        <!-- Completed timer -->
+        <!-- <div class="finished-timer-section">
+          <div id="set-time"></div>
+          <div id="finished-timer-section-input-time">
+            <span id="finished-timer-section-message1">Timer</span>
+            <span id="finished-timer-section-message2">Is</span>
+            <span id="finished-timer-section-message3">Up !</span>
+          </div>
+          <div>
+            <button id="finished-timer-section-action-button">Delete</button>
+          </div>
+        </div> -->
+      </div>
     </section>
     <section id="Timer-End-Display-Design"></section>
   </body>

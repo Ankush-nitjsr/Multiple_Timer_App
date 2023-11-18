@@ -8,10 +8,21 @@ body {
   margin: 47px 200px;
 }
 
-input,
-span {
+input {
   background-color: #34344a;
   border: none;
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration-line: underline;
+}
+
+span {
+  background-color: #34344a;
 }
 
 input::placeholder {
@@ -36,7 +47,7 @@ h1 {
   line-height: normal;
 }
 
-#input-section {
+.input-section {
   width: 849px;
   height: 132px;
   flex-shrink: 0;
@@ -62,7 +73,7 @@ h1 {
 }
 
 #input-time {
-  width: 309px;
+  width: 380px;
   color: #fff;
   text-align: center;
   font-family: Roboto;
@@ -76,7 +87,7 @@ h1 {
   justify-content: space-around;
 }
 
-#set-button {
+#action-button {
   width: 124px;
   height: 52px;
   flex-shrink: 0;
@@ -106,4 +117,69 @@ h1 {
   font-weight: 500;
   line-height: normal;
   background-color: #39393e;
+}
+
+#active-timer {
+  margin: 43px auto;
+}
+
+#active-timer > span {
+  width: 321.37px;
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: block;
+  margin: 60px auto;
+  background-color: #1d1d23;
+}
+
+.finished-timer-section {
+  width: 849px;
+  height: 132px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background-color: #f0f757;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 43px auto;
+  padding: 0 30px;
+}
+
+.finished-timer-section div {
+  background-color: #f0f757;
+}
+
+#finished-timer-section-input-time {
+  width: 380px;
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.finished-timer-section span {
+  background-color: #f0f757;
+  color: #34344a;
+}
+
+.finished-timer-section > div > button {
+  background-color: #34344a;
+  color: #ffffff;
+  width: 124px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 26px;
+  cursor: pointer;
 }
