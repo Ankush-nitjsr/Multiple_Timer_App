@@ -1,0 +1,109 @@
+* {
+  background-color: #1d1d23;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 47px 200px;
+}
+
+input,
+span {
+  background-color: #34344a;
+  border: none;
+}
+
+input::placeholder {
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration-line: underline;
+  overflow: visible;
+}
+
+h1 {
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+#input-section {
+  width: 849px;
+  height: 132px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background-color: #34344a;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 43px auto;
+  padding: 0 30px;
+}
+
+#set-time {
+  width: 142px;
+  color: #fff;
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background-color: #34344a;
+}
+
+#input-time {
+  width: 309px;
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: none;
+  background-color: #34344a;
+  display: flex;
+  justify-content: space-around;
+}
+
+#set-button {
+  width: 124px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 26px;
+  background: #f0f757;
+  cursor: pointer;
+}
+
+#section2-title {
+  width: 413px;
+  height: 66px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  background-color: #39393e;
+  margin: 6px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#section2-title > h3 {
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  background-color: #39393e;
+}
