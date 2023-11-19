@@ -1,4 +1,8 @@
-const obj = { timerId: 1, intervalId: null };
+let timerId = 0;
+
+const allTimers = [];
+
+const AudioElement = new Audio("clock-alarm-8761.mp3");
 
 const parent = document.getElementById("active-timer");
 
@@ -28,10 +32,12 @@ function onSetButtonClick() {
 }
 
 function startTimer(totalSeconds) {
+  const obj = { timerId: timerId, intervalId: null };
+  allTimers.push(obj);
+  console.log(allTimers);
   const div = document.createElement("div");
   div.id = `${obj.timerId}`;
   div.className = "input-section";
-  obj.timerId++;
 
   // add new timer display
   div.innerHTML = `
@@ -43,7 +49,7 @@ function startTimer(totalSeconds) {
         <div id="input-time">
             <input
             type="number"
-            id="startHourTime"
+            id=\"startHourTime-${timerId}\"
             placeholder="hh"
             min="0"
             max="23"
@@ -52,7 +58,7 @@ function startTimer(totalSeconds) {
             <span>:</span>
             <input
             type="number"
-            id="startMinuteTime"
+            id=\"startMinuteTime-${timerId}\"
             placeholder="mm"
             min="0"
             max="59"
@@ -61,7 +67,7 @@ function startTimer(totalSeconds) {
             <span>:</span>
             <input
             type="number"
-            id="startSecondTime"
+            id=\"startSecondTime-${timerId}\"
             placeholder="ss"
             min="0"
             max="59"
@@ -75,29 +81,36 @@ function startTimer(totalSeconds) {
 
   parent.appendChild(div);
 
-  document.getElementById("startHourTime").value = Math.floor(
+  console.log("startHourTime-${timerId}", `startHourTime-${timerId}`);
+  document.getElementById(`startHourTime-${timerId}`).value = Math.floor(
     totalSeconds / 3600
   );
-  document.getElementById("startMinuteTime").value = Math.floor(
+  document.getElementById(`startMinuteTime-${timerId}`).value = Math.floor(
     (totalSeconds % 3600) / 60
   );
-  document.getElementById("startSecondTime").value = totalSeconds % 60;
+  document.getElementById(`startSecondTime-${timerId}`).value =
+    totalSeconds % 60;
+  console.log(allTimers);
 
   //start the timer
-  startTime();
+  startTime(obj);
 }
 
-function startTime() {
+function startTime(obj) {
   // check if an interval has already been set up
   if (!obj.intervalId) {
-    obj.intervalId = setInterval(decreaseTime, 1000);
+    obj.intervalId = setInterval(() => decreaseTime(obj), 1000);
   }
+  console.log(allTimers);
+  timerId++;
 }
 
-function decreaseTime() {
-  let secondTime = +document.getElementById("startSecondTime").value;
-  let minuteTime = +document.getElementById("startMinuteTime").value;
-  let hourTime = +document.getElementById("startHourTime").value;
+function decreaseTime(obj) {
+  let secondTime = +document.getElementById(`startSecondTime-${obj.timerId}`)
+    .value;
+  let minuteTime = +document.getElementById(`startMinuteTime-${obj.timerId}`)
+    .value;
+  let hourTime = +document.getElementById(`startHourTime-${obj.timerId}`).value;
 
   let totalSeconds = hourTime * 3600 + minuteTime * 60 + secondTime;
 
@@ -108,9 +121,11 @@ function decreaseTime() {
     minuteTime = Math.floor((totalSeconds % 3600) / 60);
     secondTime = totalSeconds % 60;
 
-    document.getElementById("startHourTime").value = hourTime;
-    document.getElementById("startMinuteTime").value = minuteTime;
-    document.getElementById("startSecondTime").value = secondTime;
+    document.getElementById(`startHourTime-${obj.timerId}`).value = hourTime;
+    document.getElementById(`startMinuteTime-${obj.timerId}`).value =
+      minuteTime;
+    document.getElementById(`startSecondTime-${obj.timerId}`).value =
+      secondTime;
   } else {
     clearInterval(obj.intervalId);
     // release our intervalID from the variable
@@ -127,18 +142,37 @@ function resetTimer() {
 }
 
 function endTimerDisplay(timerId) {
-  const childTimer = document.getElementById(timerId);
+  const parentTimer = document.getElementById(timerId);
 
-  childTimer.className = "finished-timer-section";
-  childTimer.getElementById("set-time").innerHTML = "";
-  childTimer.getElementById("finished-timer-section-message1").innerHTML =
-    "Timer";
-  childTimer.getElementById("finished-timer-section-message2").innerHTML = "Is";
-  childTimer.getElementById("finished-timer-section-message3").innerHTML =
-    "Up !";
+  parentTimer.className = "finished-timer-section";
 
-  childTimer.getElementById("finished-timer-section-action-button").innerHTML =
-    "Delete";
+  while (parentTimer.firstChild) {
+    parentTimer.removeChild(parentTimer.firstChild);
+  }
 
-  parent.appendChild(div);
+  parentTimer.innerHTML = `
+        <div id="set-time"></div>
+        <div id="finished-timer-section-input-time">
+            <span id="finished-timer-section-message1">Timer</span>
+            <span id="finished-timer-section-message2">Is</span>
+            <span id="finished-timer-section-message3">Up !</span>
+        </div>
+        <div>
+            <button id=\"finished-timer-section-action-button-${timerId}\">Delete</button>
+        </div>
+  `;
+
+  // play audio on timer finish
+  AudioElement.play();
+
+  // on clicking delete button
+  document
+    .getElementById(`finished-timer-section-action-button-${timerId}`)
+    .addEventListener("click", () => onDeleteButtonClick(timerId));
+}
+
+// remove the finished timer
+
+function onDeleteButtonClick(id) {
+  document.getElementById(id).remove();
 }
