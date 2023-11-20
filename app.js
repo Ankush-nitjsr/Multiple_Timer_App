@@ -34,7 +34,6 @@ function onSetButtonClick() {
 function startTimer(totalSeconds) {
   const obj = { timerId: timerId, intervalId: null };
   allTimers.push(obj);
-  console.log(allTimers);
   const div = document.createElement("div");
   div.id = `${obj.timerId}`;
   div.className = "input-section";
@@ -46,7 +45,7 @@ function startTimer(totalSeconds) {
                 >Time Left :</label
             >
         </div>
-        <div id="input-time">
+        <div id="input-times">
             <input
             type="number"
             id=\"startHourTime-${timerId}\"
@@ -74,14 +73,13 @@ function startTimer(totalSeconds) {
             step="1"
             />
         </div>
-        <div style="background-color: #34344a">
-            <button id="action-button">Stop</button>
+        <div id="stop-button-div" style="background-color: #34344a">
+            <button id=\"action-button-${obj.timerId}\">Stop</button>
         </div>
   `;
 
   parent.appendChild(div);
 
-  console.log("startHourTime-${timerId}", `startHourTime-${timerId}`);
   document.getElementById(`startHourTime-${timerId}`).value = Math.floor(
     totalSeconds / 3600
   );
@@ -90,10 +88,13 @@ function startTimer(totalSeconds) {
   );
   document.getElementById(`startSecondTime-${timerId}`).value =
     totalSeconds % 60;
-  console.log(allTimers);
 
   //start the timer
   startTime(obj);
+  // for stopping current timer
+  document
+    .getElementById(`action-button-${obj.timerId}`)
+    .addEventListener("click", () => onStopButtonClick(obj));
 }
 
 function startTime(obj) {
@@ -101,16 +102,41 @@ function startTime(obj) {
   if (!obj.intervalId) {
     obj.intervalId = setInterval(() => decreaseTime(obj), 1000);
   }
-  console.log(allTimers);
   timerId++;
 }
 
+function onStopButtonClick(obj) {
+  const button = document.getElementById(`action-button-${obj.timerId}`);
+  if (button.innerText === "Stop") {
+    clearInterval(obj.intervalId);
+    document.getElementById(`action-button-${obj.timerId}`).innerText =
+      "Resume";
+  } else if (button.innerText === "Resume") {
+    if (obj.intervalId !== null) {
+      setInterval(() => decreaseTime(obj), 1000);
+    }
+    document.getElementById(`action-button-${obj.timerId}`).innerText = "Stop";
+  } else {
+    clearInterval(obj.intervalId);
+  }
+}
+
 function decreaseTime(obj) {
-  let secondTime = +document.getElementById(`startSecondTime-${obj.timerId}`)
-    .value;
-  let minuteTime = +document.getElementById(`startMinuteTime-${obj.timerId}`)
-    .value;
-  let hourTime = +document.getElementById(`startHourTime-${obj.timerId}`).value;
+  let secondTime;
+  let minuteTime;
+  let hourTime;
+  if (document.getElementById("input-times") !== null) {
+    secondTime = document.getElementById("input-times").children[4].value;
+    console.log(secondTime);
+  }
+  if (document.getElementById(`startMinuteTime-${obj.timerId}`) !== null) {
+    minuteTime = +document.getElementById(`startMinuteTime-${obj.timerId}`)
+      .value;
+  }
+
+  if (document.getElementById(`startHourTime-${obj.timerId}`) !== null) {
+    hourTime = +document.getElementById(`startHourTime-${obj.timerId}`).value;
+  }
 
   let totalSeconds = hourTime * 3600 + minuteTime * 60 + secondTime;
 
@@ -133,6 +159,7 @@ function decreaseTime(obj) {
     // change interface to finised timer
     endTimerDisplay(obj.timerId);
   }
+  
 }
 
 function resetTimer() {
